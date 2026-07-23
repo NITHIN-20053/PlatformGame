@@ -49,17 +49,17 @@ public class PlayerInput : MonoBehaviour
 
     private void PlayerControl()
     {
-        movementAction.performed += inputInfo => MovementInput = inputInfo.ReadValue < Vector2>();
+        movementAction.performed += inputInfo => MovementInput = inputInfo.ReadValue <Vector2>();
         movementAction.canceled += inputInfo => MovementInput = Vector2.zero;
 
-        rotationAction.performed += inputInfo => RotationInput = inputInfo.ReadValue < Vector2 >();
+        rotationAction.performed += inputInfo => RotationInput = inputInfo.ReadValue <Vector2>();
         rotationAction.canceled += inputInfo => RotationInput = Vector2.zero;
 
         jumpAction.performed += inputInfo => JumpInput = true;
         jumpAction.canceled += inputInfo => JumpInput = false;
 
         sprintAction.performed += inputInfo => SprintInput = true;
-        sprintAction.performed += inputInfo => SprintInput = false;
+        sprintAction.canceled += inputInfo => SprintInput = false;
 
 
 
