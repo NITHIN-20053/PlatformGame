@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 public class PlayerInput : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -28,6 +29,8 @@ public class PlayerInput : MonoBehaviour
     private InputAction rotationAction;
     private InputAction jumpAction;
     private InputAction sprintAction;
+
+
     
     public Vector2 MovementInput { get; private set; }
     public Vector2 RotationInput { get; private set; }
@@ -75,6 +78,8 @@ public class PlayerInput : MonoBehaviour
     {
         playerControl.FindActionMap(actionMapName).Disable();
     }
+
+
 
 }
 
