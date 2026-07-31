@@ -37,8 +37,12 @@ public class FPSController : MonoBehaviour
 
     private void Update()
     {
+
         HandleMovement();
         HandleRotation();
+        //HandleMovement();
+        //HandleRotation();
+
     }
     private Vector3 Direction()
     {
@@ -83,7 +87,7 @@ public class FPSController : MonoBehaviour
     }
     private void HandleVerticalRotation(float rotation)
     {
-        transform.Rotate(0, rotation, 0);
+        //transform.Rotate(0, rotation, 0);
         verticalRotation = Mathf.Clamp(verticalRotation - rotation, -Updownlookrage, Updownlookrage);
         mainCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 
@@ -107,6 +111,10 @@ public class FPSController : MonoBehaviour
 
         }
 
+    }
+    public void ResetMovement()
+    {
+        currentMovement = Vector3.zero;
     }
 
 
