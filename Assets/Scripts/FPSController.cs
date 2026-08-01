@@ -28,7 +28,7 @@ public class FPSController : MonoBehaviour
     private int coinCount = 0;
     public TMP_Text countText;
 
-    private Vector3 platformMovement;
+
 
     // Start is called before the first frame update
     void Start()
@@ -83,8 +83,8 @@ public class FPSController : MonoBehaviour
         currentMovement.z = worldDirection.z * currentSpeed;
 
         HandleJump();
-       characterController.Move(currentMovement * Time.deltaTime);
-   
+        characterController.Move(currentMovement * Time.deltaTime);
+
 
     }
 
