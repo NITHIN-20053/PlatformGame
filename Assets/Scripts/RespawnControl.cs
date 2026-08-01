@@ -18,6 +18,7 @@ public class RespawnControl : MonoBehaviour
 
     public Transform respawnPosition;
     public static RespawnControl Instance;
+    public WobblyPlatform[] platforms;
     private void Awake()
     {
         Instance = this;
@@ -30,15 +31,13 @@ public class RespawnControl : MonoBehaviour
     //        other.transform.position = respawnPosition.position;
     //    }
     //}
+
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Hit: " + other.name);
-
         if (other.CompareTag("Player"))
         {
-            //Debug.Log("Respawning");
-
             CharacterController cc = other.GetComponent<CharacterController>();
+
             if (cc != null)
                 cc.enabled = false;
 
@@ -46,6 +45,11 @@ public class RespawnControl : MonoBehaviour
 
             if (cc != null)
                 cc.enabled = true;
+
+            foreach (WobblyPlatform platform in platforms)
+            {
+                platform.ResetPlatform();
+            }
         }
     }
 }

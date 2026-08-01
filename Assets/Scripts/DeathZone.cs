@@ -15,6 +15,21 @@ public class DeathZone : MonoBehaviour
     {
         
     }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        CharacterController cc = other.GetComponent<CharacterController>();
+
+    //        if (cc != null)
+    //            cc.enabled = false;
+
+    //        other.transform.position = RespawnControl.Instance.respawnPosition.position;
+
+    //        if (cc != null)
+    //            cc.enabled = true;
+    //    }
+    //}
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -28,6 +43,14 @@ public class DeathZone : MonoBehaviour
 
             if (cc != null)
                 cc.enabled = true;
+
+
+            Debug.Log("Player respawned");
+
+            foreach (WobblyPlatform platform in RespawnControl.Instance.platforms)
+            {
+                platform.ResetPlatform();
+            }
         }
     }
 }

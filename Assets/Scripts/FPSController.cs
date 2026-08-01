@@ -23,9 +23,12 @@ public class FPSController : MonoBehaviour
     private Vector3 currentMovement;
     private float verticalRotation;
     private float currentSpeed => speed * (playerInput.SprintInput ? setSprintbyTimes : 1);
+    //private float currentSpeed => speed * (playerInput.SprintInput && characterController.isGrounded ? setSprintbyTimes : 1);
 
     private int coinCount = 0;
     public TMP_Text countText;
+
+    private Vector3 platformMovement;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +71,10 @@ public class FPSController : MonoBehaviour
         }
         
     }
+    public void LaunchPlayer(float force)
+    {
+        currentMovement.y = force;
+    }
 
     private void HandleMovement()
     {
@@ -76,9 +83,11 @@ public class FPSController : MonoBehaviour
         currentMovement.z = worldDirection.z * currentSpeed;
 
         HandleJump();
-        characterController.Move(currentMovement * Time.deltaTime);
+       characterController.Move(currentMovement * Time.deltaTime);
+   
 
     }
+
 
     private void HandleHorizontalRotation(float rotation)
     {
