@@ -20,6 +20,9 @@ public class FinishControl : MonoBehaviour
     public GameObject levelCompletePanel;
     public Transform level1pos;
 
+    public GameObject notEnoughCoinsPanel;
+    public int requiredCoins = 5;
+
     private bool completed = false;
 
     private void OnTriggerEnter(Collider other)
@@ -28,11 +31,23 @@ public class FinishControl : MonoBehaviour
         {
             return;
         }
-        
+
         if (other.CompareTag("Player"))
         {
-            completed = true;   
-            StartCoroutine(FinishLevel(other));  
+            FPSController fps = other.GetComponent<FPSController>();
+
+            if (fps != null)
+            {
+                if (fps.GetCoinCount() >= requiredCoins)
+                {
+                    completed = true;
+                    StartCoroutine(FinishLevel(other));
+                }
+                else
+                {
+                    StartCoroutine(NotEnoughCoins(other));
+                }
+            }
         }
     }
 
@@ -59,12 +74,39 @@ public class FinishControl : MonoBehaviour
             if (fps != null)
             {
                 fps.ResetMovement();
+                fps.ResetCoins();
             }
 
             RespawnControl.Instance.respawnPosition.position = newPosition;
         }
 
         levelCompletePanel.SetActive(false);
+    }
+    IEnumerator NotEnoughCoins(Collider player)
+    {
+        notEnoughCoinsPanel.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        notEnoughCoinsPanel.SetActive(false);
+
+        CharacterController cc = player.GetComponentInParent<CharacterController>();
+
+        if (cc != null)
+        {
+            cc.enabled = false;
+
+            cc.transform.position = RespawnControl.Instance.respawnPosition.position;
+
+            cc.enabled = true;
+
+            FPSController fps = cc.GetComponent<FPSController>();
+
+            if (fps != null)
+            {
+                fps.ResetMovement();
+            }
+        }
     }
 
 }

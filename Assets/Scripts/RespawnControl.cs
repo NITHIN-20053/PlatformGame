@@ -19,6 +19,7 @@ public class RespawnControl : MonoBehaviour
     public Transform respawnPosition;
     public static RespawnControl Instance;
     public WobblyPlatform[] platforms;
+    //public Coin[] coins;
     private void Awake()
     {
         Instance = this;
@@ -50,6 +51,14 @@ public class RespawnControl : MonoBehaviour
             {
                 platform.ResetPlatform();
             }
+            //Debug.Log("Number of coins to reset: " + coins.Length);
+
+            //foreach (Coin coin in coins)
+            //{
+            //    coin.ResetCoin();
+            //}
+
+
         }
     }
 }

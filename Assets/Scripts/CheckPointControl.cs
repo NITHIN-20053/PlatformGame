@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.BoolParameter;
 
 public class CheckPointControl : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class CheckPointControl : MonoBehaviour
     //    }
     //}
     public BoxCollider trigger;
+    public GameObject checkpointPanel;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -39,7 +41,16 @@ public class CheckPointControl : MonoBehaviour
             trigger.enabled = false;
 
             Debug.Log("New checkpoint saved: " + transform.position);
+            StartCoroutine(ShowCheckpointPanel());
         }
+    }
+    IEnumerator ShowCheckpointPanel()
+    {
+        checkpointPanel.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        checkpointPanel.SetActive(false);
     }
 }
 

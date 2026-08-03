@@ -25,7 +25,7 @@ public class FPSController : MonoBehaviour
     private float currentSpeed => speed * (playerInput.SprintInput ? setSprintbyTimes : 1);
     //private float currentSpeed => speed * (playerInput.SprintInput && characterController.isGrounded ? setSprintbyTimes : 1);
 
-    private int coinCount = 0;
+    public int coinCount = 0;
     public TMP_Text countText;
 
 
@@ -121,12 +121,39 @@ public class FPSController : MonoBehaviour
         }
 
     }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Coin"))
+    //    {
+    //        Coin coin = other.GetComponent<Coin>();
+
+    //        if (coin != null)
+    //        {
+    //            coin.Collect();
+
+    //            coinCount++;
+
+    //            countText.text = "Coins: " + coinCount;
+    //        }
+    //    }
+    //}
     public void ResetMovement()
     {
         currentMovement = Vector3.zero;
     }
+    public int GetCoinCount()
+    {
+        return coinCount;
+    }
+    public void ResetCoins()
+    {
+        coinCount = 0;
 
-
+        if (countText != null)
+        {
+            countText.text = "Coins: " + coinCount;
+        }
+    }
 
 
 
