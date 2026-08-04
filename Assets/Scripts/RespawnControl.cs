@@ -24,6 +24,46 @@ public class RespawnControl : MonoBehaviour
     {
         Instance = this;
     }
+    public void RespawnPlayer(GameObject player)
+    {
+        CharacterController cc = player.GetComponent<CharacterController>();
+
+        if (cc != null)
+            cc.enabled = false;
+
+
+        player.transform.position = respawnPosition.position;
+
+
+        if (cc != null)
+            cc.enabled = true;
+
+
+        // Reset oxygen
+        OxygenController oxygen = player.GetComponent<OxygenController>();
+
+        if (oxygen != null)
+        {
+            oxygen.ResetOxygen();
+        }
+
+
+        // Reset platforms
+        foreach (WobblyPlatform platform in platforms)
+        {
+            platform.ResetPlatform();
+        }
+
+
+        // Reset enemies
+        foreach (EnemyAI enemy in enemies)
+        {
+            enemy.ResetEnemy();
+        }
+
+
+        Debug.Log("Player Respawned");
+    }
 
     //private void OnTriggerEnter(Collider other)
     //{

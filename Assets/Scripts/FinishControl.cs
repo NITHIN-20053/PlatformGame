@@ -78,6 +78,12 @@ public class FinishControl : MonoBehaviour
             }
 
             RespawnControl.Instance.respawnPosition.position = newPosition;
+            OxygenController oxygen = cc.GetComponent<OxygenController>();
+
+            if (oxygen != null)
+            {
+                oxygen.ResetOxygen();
+            }
         }
 
         levelCompletePanel.SetActive(false);
