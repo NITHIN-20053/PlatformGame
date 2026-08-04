@@ -24,6 +24,10 @@ public class DeathZone : MonoBehaviour
             {
                 platform.ResetPlatform();
             }
+            foreach (EnemyAI enemy in RespawnControl.Instance.enemies)
+            {
+                enemy.ResetEnemy();
+            }
 
             //foreach (Coin coin in RespawnControl.Instance.coins)
             //{
@@ -32,4 +36,5 @@ public class DeathZone : MonoBehaviour
             //}
         }
     }
+
 }

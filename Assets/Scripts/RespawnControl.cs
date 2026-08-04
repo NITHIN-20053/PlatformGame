@@ -19,7 +19,7 @@ public class RespawnControl : MonoBehaviour
     public Transform respawnPosition;
     public static RespawnControl Instance;
     public WobblyPlatform[] platforms;
-    //public Coin[] coins;
+    public EnemyAI[] enemies;
     private void Awake()
     {
         Instance = this;
@@ -33,32 +33,36 @@ public class RespawnControl : MonoBehaviour
     //    }
     //}
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            CharacterController cc = other.GetComponent<CharacterController>();
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        CharacterController cc = other.GetComponent<CharacterController>();
 
-            if (cc != null)
-                cc.enabled = false;
+    //        if (cc != null)
+    //            cc.enabled = false;
 
-            other.transform.position = respawnPosition.position;
+    //        other.transform.position = respawnPosition.position;
 
-            if (cc != null)
-                cc.enabled = true;
+    //        if (cc != null)
+    //            cc.enabled = true;
 
-            foreach (WobblyPlatform platform in platforms)
-            {
-                platform.ResetPlatform();
-            }
-            //Debug.Log("Number of coins to reset: " + coins.Length);
+    //        foreach (WobblyPlatform platform in platforms)
+    //        {
+    //            platform.ResetPlatform();
+    //        }
+    //        foreach (EnemyAI enemy in RespawnControl.Instance.enemies)
+    //        {
+    //            enemy.ResetEnemy();
+    //        }
+    //        //Debug.Log("Number of coins to reset: " + coins.Length);
 
-            //foreach (Coin coin in coins)
-            //{
-            //    coin.ResetCoin();
-            //}
+    //        //foreach (Coin coin in coins)
+    //        //{
+    //        //    coin.ResetCoin();
+    //        //}
 
 
-        }
-    }
+    //    }
+    //}
 }

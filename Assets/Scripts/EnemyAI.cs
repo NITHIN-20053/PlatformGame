@@ -21,6 +21,9 @@ public class EnemyAI : MonoBehaviour
     private int patrolIndex = 0;
     private float attackTimer = 0f;
 
+    public Transform resetPosition;
+
+
     private void Start()
     {
         rend = GetComponent<Renderer>();
@@ -98,6 +101,15 @@ public class EnemyAI : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
+
+    public void ResetEnemy()
+    {
+        transform.position = resetPosition.position;
+
+        patrolIndex = 0;
+        currentState = State.Patrol;
+    }
+
 }
 
        
