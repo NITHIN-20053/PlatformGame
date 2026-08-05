@@ -27,6 +27,7 @@ public class RespawnControl : MonoBehaviour
     }
     public void RespawnPlayer(GameObject player)
     {
+        player.transform.SetParent(null, true);
         CharacterController cc = player.GetComponent<CharacterController>();
 
         if (cc != null)

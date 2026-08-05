@@ -22,8 +22,8 @@ public class FPSController : MonoBehaviour
 
     private Vector3 currentMovement;
     private float verticalRotation;
-    private float currentSpeed => speed * (playerInput.SprintInput ? setSprintbyTimes : 1);
-    //private float currentSpeed => speed * (playerInput.SprintInput && characterController.isGrounded ? setSprintbyTimes : 1);
+    //private float currentSpeed => speed * (playerInput.SprintInput ? setSprintbyTimes : 1);
+    private float currentSpeed => speed * (playerInput.SprintInput && characterController.isGrounded ? setSprintbyTimes : 1);
 
     public int coinCount = 0;
     public TMP_Text countText;
