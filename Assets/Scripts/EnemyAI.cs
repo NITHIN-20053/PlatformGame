@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class EnemyAI : MonoBehaviour
     private float attackTimer = 0f;
 
     public Transform resetPosition;
+ 
 
 
     private void Start()
@@ -73,6 +75,7 @@ public class EnemyAI : MonoBehaviour
     void Attack()
     {
         transform.LookAt(player);
+
         float dist = Vector3.Distance(transform.position, player.position);
         if (dist > attackRange)
         {
@@ -91,6 +94,7 @@ public class EnemyAI : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
         transform.LookAt(target);
     }
+
     private void OnDrawGizmosSelected()
     {
         // Chase range (yellow)

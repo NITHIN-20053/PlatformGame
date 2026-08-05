@@ -119,6 +119,14 @@ public class FPSController : MonoBehaviour
             countText.text = "Coins: " + coinCount;
 
         }
+        if (other.CompareTag("MegaCoin") && other.gameObject.activeSelf)
+        {
+            other.gameObject.SetActive(false);
+
+            coinCount += 5;
+
+            countText.text = "Coins: " + coinCount;
+        }
 
     }
     //private void OnTriggerEnter(Collider other)

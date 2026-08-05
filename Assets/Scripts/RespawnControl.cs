@@ -20,6 +20,7 @@ public class RespawnControl : MonoBehaviour
     public static RespawnControl Instance;
     public WobblyPlatform[] platforms;
     public EnemyAI[] enemies;
+    public OxygenBubble[] oxygenBubbles;
     private void Awake()
     {
         Instance = this;
@@ -59,6 +60,10 @@ public class RespawnControl : MonoBehaviour
         foreach (EnemyAI enemy in enemies)
         {
             enemy.ResetEnemy();
+        }
+        foreach (OxygenBubble bubble in oxygenBubbles)
+        {
+            bubble.ResetBubble();
         }
 
 

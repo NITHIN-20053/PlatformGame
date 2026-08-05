@@ -22,4 +22,5 @@ public class MovingPlatformCollision : MonoBehaviour
             other.gameObject.transform.parent = null;
         }
     }
+
 }

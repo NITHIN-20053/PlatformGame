@@ -13,6 +13,8 @@ public class OxygenController : MonoBehaviour
     public float oxygenIncAmt = 30f;
 
     private float currentOxygen;
+    public bool oxygenActive;
+    public GameObject oxygenUI;
 
     // Start is called before the first frame update
     void Start()
@@ -24,16 +26,16 @@ public class OxygenController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!oxygenActive)
+        {
+            return;
+        }
+
         currentOxygen -= oxygenDecRate * Time.deltaTime;
         currentOxygen = Mathf.Clamp(currentOxygen, 0, maxVal);
+
         oxygenBar.value = currentOxygen;
 
-        //if (currentOxygen <= 0)
-        //{
-        //    Debug.Log("Player ran out of O2");
-        //    RespawnPlayer();
-
-        //}
         if (currentOxygen <= 0)
         {
             RespawnControl.Instance.RespawnPlayer(gameObject);
@@ -46,7 +48,13 @@ public class OxygenController : MonoBehaviour
             currentOxygen += oxygenIncAmt;
             currentOxygen = Mathf.Clamp(currentOxygen, 0, maxVal);
             oxygenBar.value = currentOxygen;
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
+            OxygenBubble bubble = other.GetComponent<OxygenBubble>();
+
+            if (bubble != null)
+            {
+                bubble.CollectBubble();
+            }
         }
     }
 
