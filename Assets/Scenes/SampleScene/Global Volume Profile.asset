@@ -14,19 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   redOutRedIn:
-    m_OverrideState: 1
-    m_Value: 20
-  redOutGreenIn:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 75
+  redOutGreenIn:
+    m_OverrideState: 1
+    m_Value: -3
   redOutBlueIn:
     m_OverrideState: 0
     m_Value: 0
   greenOutRedIn:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   greenOutGreenIn:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 79
   greenOutBlueIn:
     m_OverrideState: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
     m_Value: 0
   focusDistance:
     m_OverrideState: 1
-    m_Value: 1.4
+    m_Value: 1.57
   aperture:
     m_OverrideState: 1
     m_Value: 5.3
@@ -145,13 +145,13 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 1
-    m_Value: {x: 0.7315209, y: 0.7728027, z: 1, w: 0}
+    m_Value: {x: 0.863625, y: 0.84157336, z: 1, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.7266338, y: 0.75469124, z: 1, w: 0}
+    m_Value: {x: 0.8392132, y: 0.8159793, z: 1, w: 0}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.64252895, y: 0.7175623, z: 1, w: 0}
+    m_Value: {x: 0.77874833, y: 0.79559845, z: 1, w: 0}
 --- !u!114 &6884499790838903916
 MonoBehaviour:
   m_ObjectHideFlags: 3
