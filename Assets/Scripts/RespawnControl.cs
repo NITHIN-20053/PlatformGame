@@ -21,6 +21,7 @@ public class RespawnControl : MonoBehaviour
     public WobblyPlatform[] platforms;
     public EnemyAI[] enemies;
     public OxygenBubble[] oxygenBubbles;
+    public MegaCoin[] megaCoins;
     private void Awake()
     {
         Instance = this;
@@ -48,6 +49,12 @@ public class RespawnControl : MonoBehaviour
         {
             oxygen.ResetOxygen();
         }
+        FPSController fps = player.GetComponent<FPSController>();
+
+        if (fps != null)
+        {
+            fps.LoseUnsavedMegaCoins();
+        }
 
 
         // Reset platforms
@@ -66,6 +73,11 @@ public class RespawnControl : MonoBehaviour
         {
             bubble.ResetBubble();
         }
+        foreach (MegaCoin megaCoin in megaCoins)
+        {
+            megaCoin.ResetMegaCoin();
+        }
+
 
 
         Debug.Log("Player Respawned");

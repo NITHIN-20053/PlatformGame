@@ -36,12 +36,24 @@ public class CheckPointControl : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+
             RespawnControl.Instance.respawnPosition = transform;
+            FPSController fps = other.GetComponent<FPSController>();
+
+            if (fps != null)
+            {
+                fps.SaveMegaCoins();
+            }
+
 
             trigger.enabled = false;
 
             Debug.Log("New checkpoint saved: " + transform.position);
             StartCoroutine(ShowCheckpointPanel());
+
+           
+
+    
         }
     }
     IEnumerator ShowCheckpointPanel()

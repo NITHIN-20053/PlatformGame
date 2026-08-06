@@ -26,6 +26,7 @@ public class FPSController : MonoBehaviour
     private float currentSpeed => speed * (playerInput.SprintInput && characterController.isGrounded ? setSprintbyTimes : 1);
 
     public int coinCount = 0;
+    private int unsavedMegaCoins = 0;
     public TMP_Text countText;
 
 
@@ -119,13 +120,27 @@ public class FPSController : MonoBehaviour
             countText.text = "Coins: " + coinCount;
 
         }
-        if (other.CompareTag("MegaCoin") && other.gameObject.activeSelf)
+        //if (other.CompareTag("MegaCoin") && other.gameObject.activeSelf)
+        //{
+        //    other.gameObject.SetActive(false);
+
+        //    coinCount += 5;
+
+        //    countText.text = "Coins: " + coinCount;
+        //}
+        if (other.CompareTag("MegaCoin"))
         {
-            other.gameObject.SetActive(false);
+            MegaCoin megaCoin = other.GetComponent<MegaCoin>();
 
-            coinCount += 5;
+            if (megaCoin != null)
+            {
+                megaCoin.CollectMegaCoin();
 
-            countText.text = "Coins: " + coinCount;
+                coinCount += 5;
+                unsavedMegaCoins += 5;
+
+                countText.text = "Coins: " + coinCount;
+            }
         }
 
     }
@@ -161,6 +176,18 @@ public class FPSController : MonoBehaviour
         {
             countText.text = "Coins: " + coinCount;
         }
+    }
+    public void SaveMegaCoins()
+    {
+        unsavedMegaCoins = 0;
+    }
+
+    public void LoseUnsavedMegaCoins()
+    {
+        coinCount -= unsavedMegaCoins;
+        unsavedMegaCoins = 0;
+
+        countText.text = "Coins: " + coinCount;
     }
 
 
