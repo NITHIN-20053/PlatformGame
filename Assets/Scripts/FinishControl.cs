@@ -24,6 +24,7 @@ public class FinishControl : MonoBehaviour
     public int requiredCoins = 5;
 
     private bool completed = false;
+    public bool disableOxygenAfterFinish;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -82,7 +83,14 @@ public class FinishControl : MonoBehaviour
 
             if (oxygen != null)
             {
-                oxygen.ResetOxygen();
+                if (disableOxygenAfterFinish)
+                {
+                    oxygen.DisableOxygen();
+                }
+                else
+                {
+                    oxygen.ResetOxygen();
+                }
             }
         }
 
@@ -95,16 +103,11 @@ public class FinishControl : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         notEnoughCoinsPanel.SetActive(false);
-
         CharacterController cc = player.GetComponentInParent<CharacterController>();
 
         if (cc != null)
         {
-            cc.enabled = false;
-
-            cc.transform.position = RespawnControl.Instance.respawnPosition.position;
-
-            cc.enabled = true;
+            RespawnControl.Instance.RespawnPlayer(cc.gameObject);
 
             FPSController fps = cc.GetComponent<FPSController>();
 
@@ -113,6 +116,24 @@ public class FinishControl : MonoBehaviour
                 fps.ResetMovement();
             }
         }
+
+        //CharacterController cc = player.GetComponentInParent<CharacterController>();
+
+        //if (cc != null)
+        //{
+        //    cc.enabled = false;
+
+        //    cc.transform.position = RespawnControl.Instance.respawnPosition.position;
+
+        //    cc.enabled = true;
+
+        //    FPSController fps = cc.GetComponent<FPSController>();
+
+        //    if (fps != null)
+        //    {
+        //        fps.ResetMovement();
+        //    }
+        //}
     }
 
 }

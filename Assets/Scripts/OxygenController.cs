@@ -63,6 +63,15 @@ public class OxygenController : MonoBehaviour
         currentOxygen = maxVal;
         oxygenBar.value = currentOxygen;
     }
+    public void DisableOxygen()
+    {
+        oxygenActive = false;
+
+        if (oxygenUI != null)
+        {
+            oxygenUI.SetActive(false);
+        }
+    }
 }
 
 
