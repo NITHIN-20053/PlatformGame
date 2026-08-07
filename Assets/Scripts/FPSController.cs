@@ -12,18 +12,40 @@ public class FPSController : MonoBehaviour
 
     [SerializeField] private float jump = 5.0f;
     [SerializeField] private float gravityMeasure = 1.0f;
+    [SerializeField] private float crouchSpeed = 2.0f;
 
     [SerializeField] private float mouseSensitivity = 0.1f;
     [SerializeField] private float Updownlookrage = 80f;
 
+
+
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private PlayerInput playerInput;
+    public bool canMove = true;
 
     private Vector3 currentMovement;
     private float verticalRotation;
     //private float currentSpeed => speed * (playerInput.SprintInput ? setSprintbyTimes : 1);
-    private float currentSpeed => speed * (playerInput.SprintInput && characterController.isGrounded ? setSprintbyTimes : 1);
+    //private float currentSpeed => speed * (playerInput.SprintInput && characterController.isGrounded ? setSprintbyTimes : 1);
+
+    private float currentSpeed
+    {
+        get
+        {
+            if (playerInput.CrouchInput)
+            {
+                return crouchSpeed;
+            }
+
+            if (playerInput.SprintInput && characterController.isGrounded)
+            {
+                return speed * setSprintbyTimes;
+            }
+
+            return speed;
+        }
+    }
 
     public int coinCount = 0;
     private int unsavedMegaCoins = 0;
@@ -41,11 +63,13 @@ public class FPSController : MonoBehaviour
 
     private void Update()
     {
-
-        HandleMovement();
+        if (canMove)
+        {
+            HandleMovement();
+        }
+       
         HandleRotation();
-        //HandleMovement();
-        //HandleRotation();
+      
 
     }
     private Vector3 Direction()

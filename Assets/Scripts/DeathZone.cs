@@ -1,47 +1,105 @@
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
+
+    public float respawnDelay = 2f;
+    public GameObject deathText;
+    private bool isRespawning = false;
+
+    public void Start()
+    {
+        deathText.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isRespawning)
         {
-            RespawnControl.Instance.RespawnPlayer(other.gameObject);
+            isRespawning = true;
+            StartCoroutine(DelayedRespawn(other.gameObject, deathText));
         }
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        CharacterController cc = other.GetComponent<CharacterController>();
+    public void PlayerDied(GameObject player, GameObject deathMessage)
+    {
+        if (!isRespawning)
+        {
+            isRespawning = true;
+            StartCoroutine(DelayedRespawn(player, deathMessage));
+        }
+    }
+    IEnumerator DelayedRespawn(GameObject player, GameObject deathMessage)
+    {
+        FPSController fps = player.GetComponent<FPSController>();
 
-    //        if (cc != null)
-    //            cc.enabled = false;
+        if (fps != null)
+        {
+            fps.canMove = false;
+        }
+        deathMessage.SetActive(true);
+        RespawnControl.Instance.ResetAnimals();
+        yield return new WaitForSeconds(respawnDelay);
+        RespawnControl.Instance.RespawnPlayer(player);
 
-    //        other.transform.position = RespawnControl.Instance.respawnPosition.position;
+        if (fps!= null)
+        {
+            fps.canMove = true;
+            fps.ResetMovement();
+        }
 
-    //        if (cc != null)
-    //            cc.enabled = true;
-
-    //        Debug.Log("Player respawned");
-
-    //        foreach (WobblyPlatform platform in RespawnControl.Instance.platforms)
-    //        {
-    //            platform.ResetPlatform();
-    //        }
-    //        foreach (EnemyAI enemy in RespawnControl.Instance.enemies)
-    //        {
-    //            enemy.ResetEnemy();
-    //        }
-
-    //        //foreach (Coin coin in RespawnControl.Instance.coins)
-    //        //{
-    //        //    Debug.Log("Resetting coin: " + coin.name);
-    //        //    coin.ResetCoin();
-    //        //}
-    //    }
-    //}
-
+        deathMessage.SetActive(false);
+        isRespawning = false;
+    }
 }
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+//private void OnTriggerEnter(Collider other)
+//{
+//    if (other.CompareTag("Player"))
+//    {
+//        CharacterController cc = other.GetComponent<CharacterController>();
+
+//        if (cc != null)
+//            cc.enabled = false;
+
+//        other.transform.position = RespawnControl.Instance.respawnPosition.position;
+
+//        if (cc != null)
+//            cc.enabled = true;
+
+//        Debug.Log("Player respawned");
+
+//        foreach (WobblyPlatform platform in RespawnControl.Instance.platforms)
+//        {
+//            platform.ResetPlatform();
+//        }
+//        foreach (EnemyAI enemy in RespawnControl.Instance.enemies)
+//        {
+//            enemy.ResetEnemy();
+//        }
+
+//        //foreach (Coin coin in RespawnControl.Instance.coins)
+//        //{
+//        //    Debug.Log("Resetting coin: " + coin.name);
+//        //    coin.ResetCoin();
+//        //}
+//    }
+//}
+
+

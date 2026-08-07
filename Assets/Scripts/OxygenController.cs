@@ -15,18 +15,26 @@ public class OxygenController : MonoBehaviour
     private float currentOxygen;
     public bool oxygenActive;
     public GameObject oxygenUI;
+    public GameObject deathText;
+    public float deathDelay = 1.5f;
+    private bool isDying = false;
 
     // Start is called before the first frame update
     void Start()
     {
         currentOxygen = maxVal;
         oxygenBar.value = currentOxygen;
+
+        if (deathText != null) 
+        { 
+            deathText.SetActive(false); 
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!oxygenActive)
+        if (!oxygenActive || isDying)
         {
             return;
         }
@@ -38,7 +46,8 @@ public class OxygenController : MonoBehaviour
 
         if (currentOxygen <= 0)
         {
-            RespawnControl.Instance.RespawnPlayer(gameObject);
+            StartCoroutine(OxygenDeath());
+            //RespawnControl.Instance.RespawnPlayer(gameObject);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -57,6 +66,37 @@ public class OxygenController : MonoBehaviour
             }
         }
     }
+    
+    IEnumerator OxygenDeath()
+    {
+        isDying = true;
+        FPSController fps = GetComponent<FPSController>();
+        if (fps != null)
+        {
+            fps.canMove = false;
+        }
+        if (deathText != null)
+        {
+            deathText.SetActive(true);
+        }
+        yield return new WaitForSeconds(deathDelay);
+
+        RespawnControl.Instance.RespawnPlayer(gameObject);
+
+        ResetOxygen();
+
+        if (deathText != null)
+        {
+            deathText.SetActive(false);
+        }
+        if (fps != null)
+        {
+            fps.canMove = true;
+            fps.ResetMovement();
+        }
+        isDying = false;
+    }
+
 
     public void ResetOxygen()
     {

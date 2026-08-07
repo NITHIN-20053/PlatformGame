@@ -26,6 +26,13 @@ public class RespawnControl : MonoBehaviour
     {
         Instance = this;
     }
+    public void ResetAnimals()
+    {
+        foreach (EnemyAI enemy in enemies)
+        {
+            enemy.ResetEnemy();
+        }
+    }
     public void RespawnPlayer(GameObject player)
     {
         player.transform.SetParent(null, true);
@@ -65,10 +72,10 @@ public class RespawnControl : MonoBehaviour
 
 
         // Reset enemies
-        foreach (EnemyAI enemy in enemies)
-        {
-            enemy.ResetEnemy();
-        }
+        //foreach (EnemyAI enemy in enemies)
+        //{
+        //    enemy.ResetEnemy();
+        //}
         foreach (OxygenBubble bubble in oxygenBubbles)
         {
             bubble.ResetBubble();
