@@ -23,6 +23,7 @@ public class FPSController : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private PlayerInput playerInput;
     public bool canMove = true;
+    public bool canRotate = true;
 
     private Vector3 currentMovement;
     private float verticalRotation;
@@ -68,10 +69,14 @@ public class FPSController : MonoBehaviour
         if (canMove)
         {
             HandleMovement();
+            //HandleRotation();
         }
-       
-        HandleRotation();
-      
+
+        if (canRotate)
+        {
+            HandleRotation();
+        }
+
 
     }
     private Vector3 Direction()

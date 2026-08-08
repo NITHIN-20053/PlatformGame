@@ -15,8 +15,8 @@ public class MessageUITrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             messagePanel.SetActive(true);
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
             GetComponent<BoxCollider>().enabled = false;
             messageCoroutine = StartCoroutine(AutoCloseMessage());
 
@@ -28,18 +28,19 @@ public class MessageUITrigger : MonoBehaviour
     IEnumerator AutoCloseMessage()
     {
         yield return new WaitForSeconds(displayTime);
-
-        CloseMessage();
-    }
-
-    public void CloseMessage()
-    {
-        if (messageCoroutine != null)
-        {
-            StopCoroutine(messageCoroutine);
-        }
         messagePanel.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+
+        //CloseMessage();
     }
+
+    //public void CloseMessage()
+    //{
+    //    if (messageCoroutine != null)
+    //    {
+    //        StopCoroutine(messageCoroutine);
+    //    }
+    //    messagePanel.SetActive(false);
+    //    Cursor.lockState = CursorLockMode.Locked;
+    //    Cursor.visible = false;
+    //}
 }

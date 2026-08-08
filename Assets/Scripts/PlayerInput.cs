@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
+using static UnityEngine.Timeline.DirectorControlPlayable;
 public class PlayerInput : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -25,13 +26,14 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private string jump = "Jump";
     [SerializeField] private string sprint = "Sprint";
     [SerializeField] private string crouch = "Crouch";
+    [SerializeField] private string escapeButton = "Escape";
 
     private InputAction movementAction;
     private InputAction rotationAction;
     private InputAction jumpAction;
     private InputAction sprintAction;
     private InputAction crouchAction;
-
+    private InputAction escapeButtonAction;
 
 
     public Vector2 MovementInput { get; private set; }
@@ -40,6 +42,7 @@ public class PlayerInput : MonoBehaviour
     public bool SprintInput { get; private set; }
     public bool CrouchInput { get; private set; }
 
+    public bool EscapeButtonInput { get; private set; }
     private void Awake()
     {
         InputActionMap mapref = playerControl.FindActionMap(actionMapName);
@@ -48,6 +51,7 @@ public class PlayerInput : MonoBehaviour
         jumpAction = mapref.FindAction(jump);
         sprintAction = mapref.FindAction(sprint);
         crouchAction = mapref.FindAction(crouch);
+        escapeButtonAction = mapref.FindAction(escapeButton);
 
         PlayerControl();
 
@@ -70,6 +74,9 @@ public class PlayerInput : MonoBehaviour
 
         crouchAction.performed += inputInfo => CrouchInput = true;
         crouchAction.canceled += inputInfo => CrouchInput = false;
+
+        escapeButtonAction.performed += inputInfo => EscapeButtonInput = true;
+        escapeButtonAction.canceled += inputInfo => EscapeButtonInput = false;
 
 
     }
