@@ -50,6 +50,8 @@ public class FPSController : MonoBehaviour
     public int coinCount = 0;
     private int unsavedMegaCoins = 0;
     public TMP_Text countText;
+    public AudioClip coinPickupSound;
+    public AudioSource coinAudioSource;
 
 
 
@@ -139,6 +141,9 @@ public class FPSController : MonoBehaviour
     {
         if (other.CompareTag("Coin") && other.gameObject.activeSelf)
         {
+            coinAudioSource.pitch = 1f;
+            coinAudioSource.PlayOneShot(coinPickupSound);
+
             other.gameObject.SetActive(false);
             coinCount = coinCount + 1;
             countText.text = "Coins: " + coinCount;
