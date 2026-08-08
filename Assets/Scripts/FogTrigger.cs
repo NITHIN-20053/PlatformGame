@@ -6,6 +6,8 @@ public class FogTrigger : MonoBehaviour
 {
     public GameObject directionalLight;
     public GameObject water;
+    public GameObject plane1;
+  
     private void OnTriggerEnter(Collider other)
     {
             
@@ -16,6 +18,8 @@ public class FogTrigger : MonoBehaviour
             RenderSettings.fogDensity = 0.005f;
             directionalLight.SetActive(true);
             water.SetActive(true);
+            plane1.SetActive(true);
+
 
         }
     }
