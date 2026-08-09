@@ -5,6 +5,7 @@ using static UnityEngine.Rendering.BoolParameter;
 
 public class CheckPointControl : MonoBehaviour
 {
+
     // Start is called before the first frame update
     //void Start()
     //{
@@ -31,6 +32,7 @@ public class CheckPointControl : MonoBehaviour
     //}
     public BoxCollider trigger;
     public GameObject checkpointPanel;
+    public GameObject checkPointParitclesEffect;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -48,6 +50,8 @@ public class CheckPointControl : MonoBehaviour
 
             trigger.enabled = false;
 
+            checkPointParitclesEffect.SetActive(false);
+
             Debug.Log("New checkpoint saved: " + transform.position);
             StartCoroutine(ShowCheckpointPanel());
 
@@ -60,9 +64,12 @@ public class CheckPointControl : MonoBehaviour
     {
         checkpointPanel.SetActive(true);
 
-        yield return new WaitForSeconds(2f);
+      
+
+        yield return new WaitForSeconds(3f);
 
         checkpointPanel.SetActive(false);
+
     }
 }
 

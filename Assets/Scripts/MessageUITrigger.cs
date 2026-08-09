@@ -7,8 +7,8 @@ public class MessageUITrigger : MonoBehaviour
 
     public GameObject messagePanel;
 
-    private Coroutine messageCoroutine;
-    public float displayTime = 5f;
+    //private Coroutine messageCoroutine;
+    //public float displayTime = 5f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,21 +17,28 @@ public class MessageUITrigger : MonoBehaviour
             messagePanel.SetActive(true);
             //Cursor.lockState = CursorLockMode.None;
             //Cursor.visible = true;
-            GetComponent<BoxCollider>().enabled = false;
-            messageCoroutine = StartCoroutine(AutoCloseMessage());
-
-
-
-
+            //GetComponent<BoxCollider>().enabled = false;
+            //messageCoroutine = StartCoroutine(AutoCloseMessage());
         }
     }
-    IEnumerator AutoCloseMessage()
+    private void OnTriggerExit(Collider other)
     {
-        yield return new WaitForSeconds(displayTime);
-        messagePanel.SetActive(false);
-
-        //CloseMessage();
+        if (other.CompareTag("Player"))
+        {
+            messagePanel.SetActive(false);
+            //Cursor.lockState = CursorLockMode.None;
+            //Cursor.visible = true;
+            //GetComponent<BoxCollider>().enabled = false;
+            //messageCoroutine = StartCoroutine(AutoCloseMessage());
+        }
     }
+    //IEnumerator AutoCloseMessage()
+    //{
+    //    yield return new WaitForSeconds(displayTime);
+    //    messagePanel.SetActive(false);
+
+    //    //CloseMessage();
+    //}
 
     //public void CloseMessage()
     //{

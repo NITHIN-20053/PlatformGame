@@ -19,6 +19,9 @@ public class OxygenController : MonoBehaviour
     public float deathDelay = 1.5f;
     private bool isDying = false;
 
+    public AudioClip oxygenPickupSound;
+    public AudioSource oxygenAudioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +61,10 @@ public class OxygenController : MonoBehaviour
             currentOxygen = Mathf.Clamp(currentOxygen, 0, maxVal);
             oxygenBar.value = currentOxygen;
             //Destroy(other.gameObject);
+            if (oxygenAudioSource != null && oxygenPickupSound != null) 
+            { 
+                oxygenAudioSource.PlayOneShot(oxygenPickupSound); 
+            }
             OxygenBubble bubble = other.GetComponent<OxygenBubble>();
 
             if (bubble != null)

@@ -151,7 +151,7 @@ public class FPSController : MonoBehaviour
 
             other.gameObject.SetActive(false);
             coinCount = coinCount + 1;
-            countText.text = "Coins: " + coinCount;
+            countText.text = coinCount.ToString(); //"Coins: " + coinCount;
 
         }
         //if (other.CompareTag("MegaCoin") && other.gameObject.activeSelf)
@@ -166,6 +166,9 @@ public class FPSController : MonoBehaviour
         {
             MegaCoin megaCoin = other.GetComponent<MegaCoin>();
 
+            coinAudioSource.pitch = 0.6f; 
+            coinAudioSource.PlayOneShot(coinPickupSound);
+
             if (megaCoin != null)
             {
                 megaCoin.CollectMegaCoin();
@@ -173,7 +176,7 @@ public class FPSController : MonoBehaviour
                 coinCount += 5;
                 unsavedMegaCoins += 5;
 
-                countText.text = "Coins: " + coinCount;
+                countText.text = coinCount.ToString(); //"Coins: " + coinCount;
             }
         }
 
