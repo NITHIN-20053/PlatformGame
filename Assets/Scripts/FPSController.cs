@@ -211,7 +211,7 @@ public class FPSController : MonoBehaviour
 
         if (countText != null)
         {
-            countText.text = "Coins: " + coinCount;
+            countText.text = coinCount.ToString(); //"Coins: " + coinCount;
         }
     }
     public void SaveMegaCoins()
@@ -224,7 +224,7 @@ public class FPSController : MonoBehaviour
         coinCount -= unsavedMegaCoins;
         unsavedMegaCoins = 0;
 
-        countText.text = "Coins: " + coinCount;
+        countText.text = coinCount.ToString();  //"Coins: " + coinCount;
     }
 
 

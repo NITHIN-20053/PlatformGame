@@ -7,6 +7,7 @@ public class FogTrigger : MonoBehaviour
     public GameObject directionalLight;
     public GameObject water;
     public GameObject plane1;
+    public GameObject coinUI;
   
     private void OnTriggerEnter(Collider other)
     {
@@ -19,7 +20,7 @@ public class FogTrigger : MonoBehaviour
             directionalLight.SetActive(true);
             water.SetActive(true);
             plane1.SetActive(true);
-
+            coinUI.SetActive(false);
 
         }
     }
