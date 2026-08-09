@@ -11,6 +11,7 @@ public class TrapGV : MonoBehaviour
     public Slider timerSlider;
 
     private Coroutine trapCoroutine;
+  
 
     private void Start()
     {
