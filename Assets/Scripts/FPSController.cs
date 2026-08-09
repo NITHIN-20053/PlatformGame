@@ -61,7 +61,9 @@ public class FPSController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        
+        coinCount = 0;
+        countText.text = coinCount.ToString();
+
     }
 
     private void Update()
