@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 
     public GameObject gameManagerPanel;
     public GameObject HintsPanel;
+    public GameObject HintsPanellevel1;
+    public GameObject HintsPanellevel2;
+    public GameObject HintsPanellevel3;
 
     public PlayerInput playerInput;
     private bool gamePaused = false;
@@ -74,6 +77,26 @@ public class GameManager : MonoBehaviour
 
 
         }
+    }
+    public void Displaylevel2Hints()
+    {
+        HintsPanellevel1.SetActive(false);
+        HintsPanellevel3.SetActive(false);
+        HintsPanellevel2.SetActive(true);
+    }
+    public void Displaylevel3Hints()
+    {
+        HintsPanellevel1.SetActive(false);
+        HintsPanellevel2.SetActive(false);
+        HintsPanellevel3.SetActive(true);
+    
+    }
+    public void Displaylevel1Hints()
+    {
+        HintsPanellevel1.SetActive(true);
+        HintsPanellevel2.SetActive(false);
+        HintsPanellevel3.SetActive(false);
+
     }
 
     public void ChangeVolume()
