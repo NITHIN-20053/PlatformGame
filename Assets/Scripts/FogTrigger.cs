@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class FogTrigger : MonoBehaviour
 {
     public GameObject directionalLight;
@@ -21,6 +21,11 @@ public class FogTrigger : MonoBehaviour
 
     private Image fadeImage; 
     private Camera playerCamera;
+
+    public GameObject credits;
+    public Animator creditsAnimator;
+    public GameObject mainMenuButton;
+    //public float creditsDuration = 39f;
 
     public void Start()
     {
@@ -60,7 +65,10 @@ public class FogTrigger : MonoBehaviour
         yield return StartCoroutine(Fade(0f, 1f));
         playerCamera.enabled = false;
         surfaceCamera.SetActive(true);
-
+   
+        credits.SetActive(true);
+        creditsAnimator.Play("CreditsAnimation");
+        StartCoroutine(ShowMainMenuButton());
         Vector3 startPosition = surfaceCamera.transform.position;
         Quaternion startRotation = surfaceCamera.transform.rotation;
 
@@ -81,12 +89,29 @@ public class FogTrigger : MonoBehaviour
 
         surfaceCamera.transform.position = cameraEndPoint.position;
         surfaceCamera.transform.rotation = cameraEndPoint.rotation;
+
+        //yield return new WaitForSeconds(creditsDuration);
+
+        //SceneManager.LoadScene("MainMenu");
+    }
+    public void GoToMainMenu()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene("MainMenu");
+    }
+    IEnumerator ShowMainMenuButton()
+    {
+        yield return new WaitForSeconds(15f);
+        mainMenuButton.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
-           
-        
 
-    
+
+
+
     IEnumerator Fade(float startAlpha, float endAlpha)
     {
         float timer = 0f; 

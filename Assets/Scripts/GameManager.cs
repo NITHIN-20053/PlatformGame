@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Slider volumeSlider;
     public AudioSource musicAudioSource;
 
+
     private void Start()
     {
         gameManagerPanel.SetActive(false);
@@ -34,11 +35,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+
         if (playerInput.EscapeButtonInput && !escapeWasPressed)
         {
             TogglePause();
             escapeWasPressed = true;
         }
+
+
         if (!playerInput.EscapeButtonInput)
         {
             escapeWasPressed = false;
@@ -101,5 +105,6 @@ public class GameManager : MonoBehaviour
         gameManagerPanel.SetActive(false);
 
     }
+
 
 }
