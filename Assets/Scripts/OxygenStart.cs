@@ -5,6 +5,8 @@ using UnityEngine;
 public class OxygenStart : MonoBehaviour
 {
     public GameObject oxygenUI;
+    //public GameObject oxygenUImsg;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,8 +21,18 @@ public class OxygenStart : MonoBehaviour
 
                 Debug.Log("Oxygen started");
             }
-
-            gameObject.SetActive(false);
+      
         }
+
     }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        oxygenUImsg.SetActive(false);
+
+    //    }
+       
+
+    //}
 }
