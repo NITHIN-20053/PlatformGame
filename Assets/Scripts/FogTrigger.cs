@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FogTrigger : MonoBehaviour
 {
@@ -8,7 +9,29 @@ public class FogTrigger : MonoBehaviour
     public GameObject water;
     public GameObject plane1;
     public GameObject coinUI;
-  
+
+    public GameObject surfaceCamera; 
+    public GameObject fadePanel;
+
+    public Transform cameraEndPoint;
+
+    public float delayBeforeFade = 2f;
+    public float fadeTime = 1.5f; 
+    public float cameraMoveTime = 6f;
+
+    private Image fadeImage; 
+    private Camera playerCamera;
+
+    public void Start()
+    {
+        fadeImage = fadePanel.GetComponent<Image>();
+        Color color = fadeImage.color;
+        color.a = 0f;
+        fadeImage.color = color;
+
+        playerCamera = Camera.main;
+        surfaceCamera.SetActive(false);
+    }
     private void OnTriggerEnter(Collider other)
     {
             
@@ -19,9 +42,73 @@ public class FogTrigger : MonoBehaviour
             RenderSettings.fogDensity = 0.005f;
             directionalLight.SetActive(true);
             water.SetActive(true);
-            plane1.SetActive(true);
             coinUI.SetActive(false);
+            GetComponent<BoxCollider>().enabled = false;
+            StartCoroutine(ActivatePlane());
+            StartCoroutine(FinalSequence());
 
         }
     }
+    IEnumerator ActivatePlane()
+    {
+        yield return new WaitForSeconds(2f);
+        plane1.SetActive(true);
+    }
+    IEnumerator FinalSequence()
+    {
+        yield return new WaitForSeconds(delayBeforeFade);
+        yield return StartCoroutine(Fade(0f, 1f));
+        playerCamera.enabled = false;
+        surfaceCamera.SetActive(true);
+
+        Vector3 startPosition = surfaceCamera.transform.position;
+        Quaternion startRotation = surfaceCamera.transform.rotation;
+
+        float timer = 0f;
+
+        yield return StartCoroutine(Fade(1f, 0f));
+
+        while (timer < cameraMoveTime)
+        {
+            timer += Time.deltaTime;
+            float progress = timer / cameraMoveTime;
+
+            surfaceCamera.transform.position = Vector3.Lerp(startPosition, cameraEndPoint.position, progress);
+            surfaceCamera.transform.rotation = Quaternion.Slerp(startRotation, cameraEndPoint.rotation, progress);
+            yield return null;
+        }
+
+
+        surfaceCamera.transform.position = cameraEndPoint.position;
+        surfaceCamera.transform.rotation = cameraEndPoint.rotation;
+    }
+
+           
+        
+
+    
+    IEnumerator Fade(float startAlpha, float endAlpha)
+    {
+        float timer = 0f; 
+        Color color = fadeImage.color;
+
+        while (timer < fadeTime)
+        {
+            timer += Time.deltaTime;
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, timer / fadeTime);
+
+            color.a = alpha;
+            fadeImage.color = color;
+            yield return null;
+        }
+
+            color.a = endAlpha;
+            fadeImage.color = color;
+
+        
+
+
+
+    }
 }
+

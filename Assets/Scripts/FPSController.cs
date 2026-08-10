@@ -110,6 +110,7 @@ public class FPSController : MonoBehaviour
         currentMovement.y = force;
     }
 
+
     private void HandleMovement()
     {
         Vector3 worldDirection = Direction();

@@ -5,6 +5,8 @@ using UnityEngine;
 public class JumpPadPlatform : MonoBehaviour
 {
     public float jumpForce = 15f;
+    public bool isLastPlatform = false;
+
 
     private void OnTriggerEnter(Collider other)
     {
