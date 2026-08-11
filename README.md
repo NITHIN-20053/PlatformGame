@@ -1,9 +1,11 @@
 README
+
 How to Play
 
-The objective is to progress through each underwater level and make your way from the ocean floor to the surface. Collect the required nuber of coins, get past the obstacles. harmful creatures use checkpoints to maintain your progress.
+The objective is to progress through each underwater level and make your way from the ocean floor to the surface. Collect the required number of coins, get past the obstacles and harmful creatures, and use checkpoints to maintain your progress on each level.
 
 Controls
+
 WASD - Movement
 Mouse - Rotation
 Space - Jump
@@ -13,12 +15,12 @@ Tab - Open Menu/Options
 
 GamePlay
 - Collect normal coins to increase your coin count
-- Collect Mega coins to increase your coin count by 5 but they need to taken to a checkpoint to confirm them permanently. They are placed at hard to reach places
-- Avoid harmful creatures like sharks, octopus and starfish
-- Avoid the Spike Trap
+- Collect Mega coins to increase your coin count by 5 but they need to taken to a checkpoint to confirm them permanently. They are placed at hard to reach locations
+- Avoid harmful creatures like sharks, octopuses and starfish
+- Avoid Spike Traps
 - Use Oxygen Bubbles to maintain the O2 supply and complete the levels
 - Use Jump Pads to reach higher platforms
-- Be careful on wobbly platforms as they eventually fall
+- Be careful on wobbly platforms as they do fall
 - Acquire the required number of coins to clear each level
 - Make it to the surface the complete the game
 
@@ -49,4 +51,4 @@ https://pngtree.com/freepng/ink-splash-style-brush_4428181.html
 
 Development Assets
 
-Some game assets were created specifically for this project. This includes custom Blender models for the platforms and collectible objects, including normal coins, Mega Coins and oxygen bubbles. Custom sound effects were also created for OxygenBubble and Coins pickup.
+Some game assets were created specifically for this project. This includes custom Blender models for the platforms and collectible objects, including normal coins and Mega Coins. Custom sound effects were also created for Coins and Oxygen Bubble pickup.
