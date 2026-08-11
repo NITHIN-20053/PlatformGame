@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
+//using System.Collections;
+//using System.Collections.Generic;
 using TMPro;
-using Unity.PlasticSCM.Editor.WebApi;
-using Unity.VisualScripting.InputSystem;
+//using Unity.VisualScripting.InputSystem;
 using UnityEngine;
 
 public class FPSController : MonoBehaviour
