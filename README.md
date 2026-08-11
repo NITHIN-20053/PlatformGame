@@ -49,4 +49,4 @@ https://pngtree.com/freepng/ink-splash-style-brush_4428181.html
 
 Development Assets
 
-Some game assets were created specifically for this project. This includes custom Blender models for the platforms and collectible objects, including normal coins, Mega Coins and oxygen bubbles. Also PickUp sound for OxygenBubble and Coins
+Some game assets were created specifically for this project. This includes custom Blender models for the platforms and collectible objects, including normal coins, Mega Coins and oxygen bubbles. Custom sound effects were also created for OxygenBubble and Coins pickup.
