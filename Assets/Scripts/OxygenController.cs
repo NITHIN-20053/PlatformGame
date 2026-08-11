@@ -7,20 +7,21 @@ using UnityEngine.UI;
 public class OxygenController : MonoBehaviour
 {
     public Slider oxygenBar;
+    public GameObject oxygenUI;
+    public GameObject deathText;
+
+    public AudioClip oxygenPickupSound;
+    public AudioSource oxygenAudioSource;
 
     public float maxVal = 100f;
     public float oxygenDecRate = 5f;
     public float oxygenIncAmt = 30f;
 
-    private float currentOxygen;
-    public bool oxygenActive;
-    public GameObject oxygenUI;
-    public GameObject deathText;
     public float deathDelay = 1.5f;
-    private bool isDying = false;
+    private float currentOxygen;
 
-    public AudioClip oxygenPickupSound;
-    public AudioSource oxygenAudioSource;
+    public bool oxygenActive;
+    private bool isDying = false;
 
     // Start is called before the first frame update
     void Start()
@@ -50,9 +51,9 @@ public class OxygenController : MonoBehaviour
         if (currentOxygen <= 0)
         {
             StartCoroutine(OxygenDeath());
-            //RespawnControl.Instance.RespawnPlayer(gameObject);
         }
     }
+    // Oxygen Bubble 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Oxygen"))
@@ -60,7 +61,6 @@ public class OxygenController : MonoBehaviour
             currentOxygen += oxygenIncAmt;
             currentOxygen = Mathf.Clamp(currentOxygen, 0, maxVal);
             oxygenBar.value = currentOxygen;
-            //Destroy(other.gameObject);
             if (oxygenAudioSource != null && oxygenPickupSound != null) 
             { 
                 oxygenAudioSource.PlayOneShot(oxygenPickupSound); 
@@ -74,6 +74,7 @@ public class OxygenController : MonoBehaviour
         }
     }
     
+    // Ran out of oxygen
     IEnumerator OxygenDeath()
     {
         isDying = true;
@@ -104,12 +105,13 @@ public class OxygenController : MonoBehaviour
         isDying = false;
     }
 
-
+    // Oxygen Reset
     public void ResetOxygen()
     {
         currentOxygen = maxVal;
         oxygenBar.value = currentOxygen;
     }
+    // Disabling Oxygen - At end of level 2 
     public void DisableOxygen()
     {
         oxygenActive = false;

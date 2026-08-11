@@ -7,7 +7,7 @@ public class JumpPadPlatform : MonoBehaviour
     public float jumpForce = 15f;
     public bool isLastPlatform = false;
 
-
+    // Player Enter Colliders Get A Boost Upwards
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

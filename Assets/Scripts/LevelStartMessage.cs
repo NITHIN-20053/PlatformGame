@@ -5,9 +5,11 @@ using UnityEngine;
 public class LevelStartMessage : MonoBehaviour
 {
     public GameObject messagePanel;
-    private bool messageSeen = false;
     public FPSController fpsController;
 
+    private bool messageSeen = false;
+
+    // Display Panel When Player Enters The Collider
     private void OnTriggerEnter(Collider other) 
     { 
         if (other.CompareTag("Player") && !messageSeen) 
@@ -22,6 +24,7 @@ public class LevelStartMessage : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         } 
     }
+    // Button Function To Close The Panel
     public void CloseMessage() 
     { 
         messagePanel.SetActive(false);

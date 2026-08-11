@@ -5,27 +5,16 @@ using UnityEngine;
 
 public class FinishControl : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    public GameObject notEnoughCoinsPanel;
     public GameObject levelCompletePanel;
     public Transform level1pos;
 
-    public GameObject notEnoughCoinsPanel;
     public int requiredCoins = 5;
 
     private bool completed = false;
     public bool disableOxygenAfterFinish;
 
+    // Final Platform Checks If Player Has Required Coin Count
     private void OnTriggerEnter(Collider other)
     {
         if (completed)
@@ -52,6 +41,7 @@ public class FinishControl : MonoBehaviour
         }
     }
 
+    // Display Finish Level Panel And Take Player To New Level (Player Met The Requirement)
     IEnumerator FinishLevel(Collider player)
     {
         levelCompletePanel.SetActive(true);
@@ -96,6 +86,8 @@ public class FinishControl : MonoBehaviour
 
         levelCompletePanel.SetActive(false);
     }
+
+    // Display Insufficient Coin Panel (Player Did Not Meet The Requirement)
     IEnumerator NotEnoughCoins(Collider player)
     {
         notEnoughCoinsPanel.SetActive(true);
@@ -116,24 +108,5 @@ public class FinishControl : MonoBehaviour
                 fps.ResetMovement();
             }
         }
-
-        //CharacterController cc = player.GetComponentInParent<CharacterController>();
-
-        //if (cc != null)
-        //{
-        //    cc.enabled = false;
-
-        //    cc.transform.position = RespawnControl.Instance.respawnPosition.position;
-
-        //    cc.enabled = true;
-
-        //    FPSController fps = cc.GetComponent<FPSController>();
-
-        //    if (fps != null)
-        //    {
-        //        fps.ResetMovement();
-        //    }
-        //}
     }
-
 }

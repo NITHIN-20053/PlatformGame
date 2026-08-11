@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
+    public GameObject deathText;
 
     public float respawnDelay = 2f;
-    public GameObject deathText;
     private bool isRespawning = false;
 
+    // Start is called before the first frame update
     public void Start()
     {
         deathText.SetActive(false);
     }
 
+    // Player Collides With The Zone And Respawns
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !isRespawning)
@@ -22,6 +24,7 @@ public class DeathZone : MonoBehaviour
             StartCoroutine(DelayedRespawn(other.gameObject, deathText));
         }
     }
+    // Player Died Method (Shark, Spike)
     public void PlayerDied(GameObject player, GameObject deathMessage)
     {
         if (!isRespawning)
@@ -30,20 +33,24 @@ public class DeathZone : MonoBehaviour
             StartCoroutine(DelayedRespawn(player, deathMessage));
         }
     }
+    // Respawns Player With A Delay
     IEnumerator DelayedRespawn(GameObject player, GameObject deathMessage)
     {
+        // Stops Player Movement
         FPSController fps = player.GetComponent<FPSController>();
 
         if (fps != null)
         {
             fps.canMove = false;
         }
+
         deathMessage.SetActive(true);
         RespawnControl.Instance.ResetAnimals();
         yield return new WaitForSeconds(respawnDelay);
         RespawnControl.Instance.RespawnPlayer(player);
 
-        if (fps!= null)
+        // Player Can Move Agian
+        if (fps != null)
         {
             fps.canMove = true;
             fps.ResetMovement();
@@ -53,53 +60,4 @@ public class DeathZone : MonoBehaviour
         isRespawning = false;
     }
 }
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-//private void OnTriggerEnter(Collider other)
-//{
-//    if (other.CompareTag("Player"))
-//    {
-//        CharacterController cc = other.GetComponent<CharacterController>();
-
-//        if (cc != null)
-//            cc.enabled = false;
-
-//        other.transform.position = RespawnControl.Instance.respawnPosition.position;
-
-//        if (cc != null)
-//            cc.enabled = true;
-
-//        Debug.Log("Player respawned");
-
-//        foreach (WobblyPlatform platform in RespawnControl.Instance.platforms)
-//        {
-//            platform.ResetPlatform();
-//        }
-//        foreach (EnemyAI enemy in RespawnControl.Instance.enemies)
-//        {
-//            enemy.ResetEnemy();
-//        }
-
-//        //foreach (Coin coin in RespawnControl.Instance.coins)
-//        //{
-//        //    Debug.Log("Resetting coin: " + coin.name);
-//        //    coin.ResetCoin();
-//        //}
-//    }
-//}
-
 

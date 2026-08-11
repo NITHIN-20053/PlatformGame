@@ -3,24 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.Timeline.DirectorControlPlayable;
 public class PlayerInput : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     [SerializeField] private InputActionAsset playerControl;
-    [SerializeField] private string actionMapName = "Player";
 
+    [SerializeField] private string actionMapName = "Player";
     [SerializeField] private string movement = "Movement";
     [SerializeField] private string rotation = "Rotation";
     [SerializeField] private string jump = "Jump";
@@ -35,14 +22,13 @@ public class PlayerInput : MonoBehaviour
     private InputAction crouchAction;
     private InputAction escapeButtonAction;
 
+    public Vector2 MovementInput;
+    public Vector2 RotationInput;
 
-    public Vector2 MovementInput { get; private set; }
-    public Vector2 RotationInput { get; private set; }
-    public bool JumpInput { get; private set; }
-    public bool SprintInput { get; private set; }
-    public bool CrouchInput { get; private set; }
-
-    public bool EscapeButtonInput { get; private set; }
+    public bool JumpInput;
+    public bool SprintInput;
+    public bool CrouchInput;
+    public bool EscapeButtonInput;
     private void Awake()
     {
         InputActionMap mapref = playerControl.FindActionMap(actionMapName);
@@ -55,9 +41,9 @@ public class PlayerInput : MonoBehaviour
 
         PlayerControl();
 
-
     }
 
+    // Player Actions 
     private void PlayerControl()
     {
         movementAction.performed += inputInfo => MovementInput = inputInfo.ReadValue <Vector2>();

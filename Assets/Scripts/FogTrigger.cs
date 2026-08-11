@@ -9,24 +9,21 @@ public class FogTrigger : MonoBehaviour
     public GameObject water;
     public GameObject plane1;
     public GameObject coinUI;
-
     public GameObject surfaceCamera; 
     public GameObject fadePanel;
+    public GameObject credits;
+    public GameObject mainMenuButton;
 
     public Transform cameraEndPoint;
-
-    public float delayBeforeFade = 2f;
-    public float fadeTime = 1.5f; 
-    public float cameraMoveTime = 6f;
-
     private Image fadeImage; 
     private Camera playerCamera;
-
-    public GameObject credits;
     public Animator creditsAnimator;
-    public GameObject mainMenuButton;
-    //public float creditsDuration = 39f;
 
+    public float delayBeforeFade = 2f;
+    public float fadeTime = 1.5f;
+    public float cameraMoveTime = 6f;
+
+    // Start is called before the first frame update
     public void Start()
     {
         fadeImage = fadePanel.GetComponent<Image>();
@@ -37,6 +34,7 @@ public class FogTrigger : MonoBehaviour
         playerCamera = Camera.main;
         surfaceCamera.SetActive(false);
     }
+    // Change Light And Other Settings As Player Is At The Surface
     private void OnTriggerEnter(Collider other)
     {
             
@@ -54,11 +52,13 @@ public class FogTrigger : MonoBehaviour
 
         }
     }
+    // Plane Enabled Acts As Support For Player To Stand 
     IEnumerator ActivatePlane()
     {
         yield return new WaitForSeconds(2f);
         plane1.SetActive(true);
     }
+    // Fade Transition Once Player Reached The Surface
     IEnumerator FinalSequence()
     {
         yield return new WaitForSeconds(delayBeforeFade);
@@ -86,20 +86,20 @@ public class FogTrigger : MonoBehaviour
             yield return null;
         }
 
-
         surfaceCamera.transform.position = cameraEndPoint.position;
         surfaceCamera.transform.rotation = cameraEndPoint.rotation;
 
-        //yield return new WaitForSeconds(creditsDuration);
-
-        //SceneManager.LoadScene("MainMenu");
     }
+
+    // Exit Button Method
     public void GoToMainMenu()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene("MainMenu");
     }
+
+    // Display Button On Screen After A Duration Into The Credits
     IEnumerator ShowMainMenuButton()
     {
         yield return new WaitForSeconds(15f);
@@ -108,10 +108,7 @@ public class FogTrigger : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-
-
-
-
+    // Fade Transition
     IEnumerator Fade(float startAlpha, float endAlpha)
     {
         float timer = 0f; 
@@ -129,11 +126,6 @@ public class FogTrigger : MonoBehaviour
 
             color.a = endAlpha;
             fadeImage.color = color;
-
-        
-
-
-
     }
 }
 

@@ -12,20 +12,19 @@ public class EnemyAI : MonoBehaviour
     public float patrolSpeed = 2f;
     public float chasingSpeed = 4f;
     public float chaseRange = 8f;
-    public float attackRange = 1.5f;
-    public float attackCoolDown = 1f;
+    //public float attackRange = 1.5f;
+    //public float attackCoolDown = 1f;
+    //private float attackTimer = 0f;
 
     public enum State { Patrol, Chase, Attack }
     public State currentState = State.Patrol;
 
     private Renderer rend;
     private int patrolIndex = 0;
-    private float attackTimer = 0f;
+
 
     public Transform resetPosition;
  
-
-
     private void Start()
     {
         rend = GetComponent<Renderer>();
@@ -41,12 +40,12 @@ public class EnemyAI : MonoBehaviour
         {
             Chase();
         }
-        else if (currentState == State.Attack)
-        {
-            Attack();
-        }
+        //else if (currentState == State.Attack)
+        //{
+        //    Attack();
+        //}
 
-        attackTimer -= Time.deltaTime;
+        //attackTimer -= Time.deltaTime;
     }
 
     void Patrol()
@@ -68,25 +67,24 @@ public class EnemyAI : MonoBehaviour
         if (dist > chaseRange + 2f)
             currentState = State.Patrol;
 
-        if (dist < attackRange)
-            currentState = State.Chase; 
+        //if (dist < attackRange)
+        //    currentState = State.Chase; 
     }
 
-    void Attack()
-    {
-        transform.LookAt(player);
+    //void Attack()
+    //{
+    //    transform.LookAt(player);
 
-        float dist = Vector3.Distance(transform.position, player.position);
-        if (dist > attackRange)
-        {
-            currentState = State.Chase;
-        }
-        if (attackTimer <= 0f)
-        {
-            Debug.Log(" Enemy attacked the player");
-            attackTimer = attackCoolDown;
-        } 
-    }
+    //    float dist = Vector3.Distance(transform.position, player.position);
+    //    if (dist > attackRange)
+    //    {
+    //        currentState = State.Chase;
+    //    }
+    //    if (attackTimer <= 0f)
+    //    {
+    //        attackTimer = attackCoolDown;
+    //    } 
+    //}
 
     void MoveTowards(Vector3 target, float speed)
     {
@@ -94,18 +92,6 @@ public class EnemyAI : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
         transform.LookAt(target);
     }
-
-    private void OnDrawGizmosSelected()
-    {
-        // Chase range (yellow)
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, chaseRange);
-
-        // Attack range (red)
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-    }
-
     public void ResetEnemy()
     {
         transform.position = resetPosition.position;
@@ -113,6 +99,19 @@ public class EnemyAI : MonoBehaviour
         patrolIndex = 0;
         currentState = State.Patrol;
     }
+
+    //private void OnDrawGizmosSelected()
+    //{
+    //    // Chase range (yellow)
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, chaseRange);
+
+    //    // Attack range (red)
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, attackRange);
+    //}
+
+
 
 }
 

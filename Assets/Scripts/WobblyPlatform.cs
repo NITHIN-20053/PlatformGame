@@ -12,18 +12,21 @@ public class WobblyPlatform : MonoBehaviour
     public float fallSpeed = 5f;
     public float destroyHeight = -20f;
 
-    private Vector3 startPos;
     private bool wobbling = false;
     private bool falling = false;
 
+    private Vector3 startPos;
     private Vector3 startPosition;
     private Quaternion startRotation;
+
+    // Start is called before the first frame update
     void Start()
     {
         startPos = transform.position;
         startRotation = transform.rotation;
     }
 
+    // Update is called once per frame
     void Update()
     {
         if (wobbling && !falling)
@@ -46,13 +49,16 @@ public class WobblyPlatform : MonoBehaviour
       
     }
 
+    // Wobble Platform
     public void StartWobble()
     {
         wobbling = true;
 
+        // Run StartFalling After The FallDelay
         Invoke(nameof(StartFalling), fallDelay);
     }
 
+    // Platforms Reset
     public void ResetPlatform()
     {
         Debug.Log("Resetting platform: " + gameObject.name);
@@ -67,6 +73,7 @@ public class WobblyPlatform : MonoBehaviour
 
         CancelInvoke();
     }
+    // Platform Falls Method
     private void StartFalling()
     {
         falling = true;

@@ -5,19 +5,21 @@ using UnityEngine.UI;
 public class TrapOctopus : MonoBehaviour
 {
     public GameObject inkImage;
-    public float effectTime = 7f;
-
     public GameObject timerPanel;
-    public Slider timerSlider;
 
+    public Slider timerSlider;
     private Coroutine trapCoroutine;
 
+    public float effectTime = 7f;
+
+    // Start is called before the first frame update
     private void Start()
     {
         inkImage.SetActive(false);
         timerPanel.SetActive(false);
     }
 
+    // When Player Collides With The Octopus 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -32,6 +34,7 @@ public class TrapOctopus : MonoBehaviour
         }
     }
 
+    // Ink Over Screen From Octopus Hinders Player Vision 
     IEnumerator InkEffect()
     {
         inkImage.SetActive(true);

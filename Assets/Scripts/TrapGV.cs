@@ -5,20 +5,22 @@ using UnityEngine.UI;
 public class TrapGV : MonoBehaviour
 {
     public GameObject globalVolume;
+    public GameObject timerPanel;
+
+    public Slider timerSlider;
+    private Coroutine trapCoroutine;
+
     public float effectTime = 7f;
 
-    public GameObject timerPanel;
-    public Slider timerSlider;
 
-    private Coroutine trapCoroutine;
-  
-
+    // Start is called before the first frame update
     private void Start()
     {
         timerPanel.SetActive(false);
         globalVolume.SetActive(false);
     }
 
+    // Player Collides With StarFish Effect Enable Hinders Player Vision
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -32,7 +34,7 @@ public class TrapGV : MonoBehaviour
             trapCoroutine = StartCoroutine(ActivateEffect());
         }
     }
-
+    // Run Effect For A Specific Duration
     IEnumerator ActivateEffect()
     {
         globalVolume.SetActive(true);

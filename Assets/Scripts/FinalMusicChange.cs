@@ -7,9 +7,8 @@ public class FinalMusicChange : MonoBehaviour
 {
     public GameManager gameManager;
     public AudioClip finalMusic;
+
     public float musicFade = 2f;
-
-
     private bool musicChanged = false;
 
     private void OnTriggerEnter(Collider other)

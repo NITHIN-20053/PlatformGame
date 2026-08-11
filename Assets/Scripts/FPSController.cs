@@ -16,45 +16,23 @@ public class FPSController : MonoBehaviour
 
     [SerializeField] private float mouseSensitivity = 0.1f;
     [SerializeField] private float Updownlookrage = 80f;
-
-
-
+  
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private PlayerInput playerInput;
-    public bool canMove = true;
-    public bool canRotate = true;
 
     private Vector3 currentMovement;
     private float verticalRotation;
-    //private float currentSpeed => speed * (playerInput.SprintInput ? setSprintbyTimes : 1);
-    //private float currentSpeed => speed * (playerInput.SprintInput && characterController.isGrounded ? setSprintbyTimes : 1);
-
-    private float currentSpeed
-    {
-        get
-        {
-            if (playerInput.CrouchInput)
-            {
-                return crouchSpeed;
-            }
-
-            if (playerInput.SprintInput && characterController.isGrounded)
-            {
-                return speed * setSprintbyTimes;
-            }
-
-            return speed;
-        }
-    }
 
     public int coinCount = 0;
     private int unsavedMegaCoins = 0;
+
     public TMP_Text countText;
     public AudioClip coinPickupSound;
     public AudioSource coinAudioSource;
 
-
+    public bool canMove = true;
+    public bool canRotate = true;
 
     // Start is called before the first frame update
     void Start()
@@ -65,29 +43,20 @@ public class FPSController : MonoBehaviour
         countText.text = coinCount.ToString();
 
     }
-
+    // Update is called once per frame
     private void Update()
     {
         if (canMove)
         {
             HandleMovement();
-            //HandleRotation();
         }
-
         if (canRotate)
         {
             HandleRotation();
         }
-
-
-    }
-    private Vector3 Direction()
-    {
-        Vector3 inputDirection = new Vector3(playerInput.MovementInput.x, 0f, playerInput.MovementInput.y);
-        Vector3 worldDirection = transform.TransformDirection(inputDirection);
-        return worldDirection.normalized;
     }
 
+    // Jump Method
     private void HandleJump()
     {
         if (characterController.isGrounded)
@@ -105,25 +74,39 @@ public class FPSController : MonoBehaviour
         }
         
     }
+    // JumpPad Method
     public void LaunchPlayer(float force)
     {
         currentMovement.y = force;
     }
 
+    // PlayerMovement (Crouch,Sprint)
+    private float GetCurrentSpeed()
+    {
+        if (playerInput.CrouchInput)
+        {
+            return crouchSpeed;
+        }
+        if (playerInput.SprintInput && characterController.isGrounded)
+        {
+            return speed * setSprintbyTimes;
+        }
+        return speed;
+    }
 
+    // Player Movement
     private void HandleMovement()
     {
         Vector3 worldDirection = Direction();
+
+        float currentSpeed = GetCurrentSpeed();
         currentMovement.x = worldDirection.x * currentSpeed;
         currentMovement.z = worldDirection.z * currentSpeed;
-
         HandleJump();
         characterController.Move(currentMovement * Time.deltaTime);
-
-
     }
 
-
+    // Player Rotation Methods
     private void HandleHorizontalRotation(float rotation)
     {
         transform.Rotate(0, rotation, 0);
@@ -131,7 +114,6 @@ public class FPSController : MonoBehaviour
     }
     private void HandleVerticalRotation(float rotation)
     {
-        //transform.Rotate(0, rotation, 0);
         verticalRotation = Mathf.Clamp(verticalRotation - rotation, -Updownlookrage, Updownlookrage);
         mainCamera.transform.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
 
@@ -145,6 +127,8 @@ public class FPSController : MonoBehaviour
         HandleHorizontalRotation(mouseX);
         HandleVerticalRotation(mouseY);
     }
+
+    // Coin and MegaCoin Collecting Code
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Coin") && other.gameObject.activeSelf)
@@ -154,17 +138,10 @@ public class FPSController : MonoBehaviour
 
             other.gameObject.SetActive(false);
             coinCount = coinCount + 1;
-            countText.text = coinCount.ToString(); //"Coins: " + coinCount;
+            countText.text = coinCount.ToString(); 
 
         }
-        //if (other.CompareTag("MegaCoin") && other.gameObject.activeSelf)
-        //{
-        //    other.gameObject.SetActive(false);
 
-        //    coinCount += 5;
-
-        //    countText.text = "Coins: " + coinCount;
-        //}
         if (other.CompareTag("MegaCoin"))
         {
             MegaCoin megaCoin = other.GetComponent<MegaCoin>();
@@ -179,58 +156,50 @@ public class FPSController : MonoBehaviour
                 coinCount += 5;
                 unsavedMegaCoins += 5;
 
-                countText.text = coinCount.ToString(); //"Coins: " + coinCount;
+                countText.text = coinCount.ToString(); 
             }
         }
 
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Coin"))
-    //    {
-    //        Coin coin = other.GetComponent<Coin>();
 
-    //        if (coin != null)
-    //        {
-    //            coin.Collect();
-
-    //            coinCount++;
-
-    //            countText.text = "Coins: " + coinCount;
-    //        }
-    //    }
-    //}
-    public void ResetMovement()
-    {
-        currentMovement = Vector3.zero;
-    }
+    // CoinCount Method
     public int GetCoinCount()
     {
         return coinCount;
     }
+
+    // Coin Reset Method
     public void ResetCoins()
     {
         coinCount = 0;
 
         if (countText != null)
         {
-            countText.text = coinCount.ToString(); //"Coins: " + coinCount;
+            countText.text = coinCount.ToString(); 
         }
     }
+    // MegCoin Save
     public void SaveMegaCoins()
     {
         unsavedMegaCoins = 0;
     }
 
+    // MegaCoin Unsaved
     public void LoseUnsavedMegaCoins()
     {
         coinCount -= unsavedMegaCoins;
         unsavedMegaCoins = 0;
 
-        countText.text = coinCount.ToString();  //"Coins: " + coinCount;
+        countText.text = coinCount.ToString();  
     }
-
-
-
-
+    public void ResetMovement()
+    {
+        currentMovement = Vector3.zero;
+    }
+    private Vector3 Direction()
+    {
+        Vector3 inputDirection = new Vector3(playerInput.MovementInput.x, 0f, playerInput.MovementInput.y);
+        Vector3 worldDirection = transform.TransformDirection(inputDirection);
+        return worldDirection.normalized;
+    }
 }

@@ -5,9 +5,8 @@ using UnityEngine;
 public class OxygenStart : MonoBehaviour
 {
     public GameObject oxygenUI;
-    //public GameObject oxygenUImsg;
 
-
+    // Oxygen Tank Breaks Enable Oxygen Level Display
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -25,14 +24,5 @@ public class OxygenStart : MonoBehaviour
         }
 
     }
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        oxygenUImsg.SetActive(false);
 
-    //    }
-       
-
-    //}
 }
