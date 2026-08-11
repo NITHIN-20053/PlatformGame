@@ -6,12 +6,12 @@ The objective is to progress through each underwater level and make your way fro
 
 Controls
 
-WASD - Movement
-Mouse - Rotation
-Space - Jump
-Shift - Sprint
-Ctrl - Crouch
-Tab - Open Menu/Options
+- WASD - Movement
+- Mouse - Rotation
+- Space - Jump
+- Shift - Sprint
+- Ctrl - Crouch
+- Tab - Open Menu/Options
 
 GamePlay
 - Collect normal coins to increase your coin count
